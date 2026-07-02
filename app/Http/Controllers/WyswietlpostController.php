@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class WyswietlpostController extends Controller
 {
-    public function WyswietlpostController(){
+    public function WyswietlpostController(Request $request){
         $posty = Posty::all();
         return redirect('/posty', compact('posty'));
     }
