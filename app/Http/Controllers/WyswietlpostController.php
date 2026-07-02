@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Posty;
-use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class WyswietlpostController extends Controller
 {
-    public function WyswietlpostController(Request $request){
+    public function wyswietlpost(){
         $posty = Posty::all();
-        return redirect('/posty', compact('posty'));
+        return view('glowna', compact('posty'));
     }
 }
