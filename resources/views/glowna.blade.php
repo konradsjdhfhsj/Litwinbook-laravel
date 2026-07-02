@@ -9,15 +9,20 @@
   
 
 
-<!-- PROFIL -->
+<!-- PROFIL -->                  
+    imie: {{$profile?->imie}}<br>
+    nazwisko: {{$profile?->nazwisko}}<br>
+    wiek: {{$profile?->wiek}}<br>
+    email: {{$profile?->email}}<br>
+    data: {{$profile?->data_powstania_konta}}<br>
 <!-- POSTY -->
  <section id="post">
   @foreach($posty as $post)
-    imie: {{$post?->imie}}
-    nazwisko: {{$post?->nazwisko}}
-    wiek: {{$post?->wiek}}
-    email: {{$post?->email}}
-    data: {{$post?->data_powstania_konta}}
+    imie: {{$post?->autor}}<br>
+    nazwisko: {{$post?->tresc}}<br>
+    wiek: {{$post?->data}}<br>
+    email: {{$post?->like}}<br>
+    data: {{$post?->altor_komentarza}}<br>
   @endforeach
  </section>
 </body>

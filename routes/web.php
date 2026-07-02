@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\GlownaController;
 use App\Http\Controllers\LogowanieController;
+use App\Http\Controllers\Profilcontroller;
 use App\Http\Controllers\RejestracjaController;
 use App\Http\Controllers\WyswietlpostController;
 use Illuminate\Support\Facades\Route;
@@ -11,4 +13,4 @@ Route::get('/', function () {
 Route::post('/logowanie', [LogowanieController::class, 'Logowanie']);
 Route::get('/rejestracja', [RejestracjaController::class, 'rejestracja']);
 Route::post('/rejestracja', [RejestracjaController::class, 'rejestracja']);
-Route::get('/glowna', [WyswietlpostController::class, 'wyswietlpost']);
+Route::get('/glowna', [GlownaController::class, 'glowna']);
