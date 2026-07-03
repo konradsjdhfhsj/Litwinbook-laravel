@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('data')->useCurrent();
             $table->string('like')->nullable();
             $table->string('komentarz')->nullable();
+            $table->string('zdjecie');
             $table->string('altor_komentarza')->nullable();
             $table->string('post_id')->nullable(); //OPCJONALNIE POD ROWZUJ !!!!!
             $table->timestamps();

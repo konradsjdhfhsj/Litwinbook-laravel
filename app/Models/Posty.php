@@ -18,6 +18,7 @@ class Posty extends Model
         'tresc',
         'data',
         'like',
+        'zdjecie',
         'komentarz',
         'autor komentarza',
         'post_id',
