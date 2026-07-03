@@ -28,7 +28,8 @@ class RejestracjaController extends Controller
             'wiek' => $dane['wiek'],
             'email' => $dane['email'],
             'password' => Hash::make($dane['password']), 
-            'ip_utwozenia_konta' => $request->ip(),     
+            'ip_utwozenia_konta' => $request->ip(), 
+            'avatar' => 'storage/dus.png',    
         ]);
 
         try {
