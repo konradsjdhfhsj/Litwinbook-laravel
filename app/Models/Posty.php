@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Posty extends Model 
 {
@@ -13,6 +15,10 @@ class Posty extends Model
 
     public $timestamps = false;
 
+public function autor()
+{
+    return $this->belongsTo(Osoby::class, 'autor');
+}
     protected $fillable = [
         'autor',
         'tresc',

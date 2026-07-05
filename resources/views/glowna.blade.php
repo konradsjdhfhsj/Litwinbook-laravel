@@ -184,7 +184,6 @@
                 </div>
 
             @endforeach
-
         </section>
 
     </section>
