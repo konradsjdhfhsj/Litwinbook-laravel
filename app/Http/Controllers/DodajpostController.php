@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Osoby;
 use App\Models\Posty;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DodajpostController extends Controller
 {
@@ -31,5 +32,10 @@ class DodajpostController extends Controller
         ]);
 
         return redirect('/glowna')->with('success', 'Post został dodany!');
+    } public function usun($id){
+        //$profile = Osoby::all();
+         $post = Posty::findOrFail($id);
+        $post->delete();
+    return redirect('/glowna')->with('succes', 'Post został usunięty');
     }
 }

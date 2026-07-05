@@ -16,3 +16,4 @@ Route::post('/rejestracja', [RejestracjaController::class, 'rejestracja']);
 Route::get('/glowna', [GlownaController::class, 'glowna']);
 Route::post('/aktualizacja_profilu', [Aktualizacjaprofilu::class, 'aktprofil']);
 Route::post('/dodawanie_postu', [DodajpostController::class, 'dodajpost']);
+Route::delete('/usun/{id}', [DodajpostController::class, 'usun']);

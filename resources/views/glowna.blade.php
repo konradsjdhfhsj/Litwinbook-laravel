@@ -139,8 +139,15 @@
                             src="{{ asset($post->zdjecie) }}"
                             class="rounded-lg max-w-md w-full">
                     @endif
-                    @if(auth()->check() && auth()->id() == $post->autor)
-                    @endif
+                @if(auth()->check() && auth()->id() === $profile->id)
+                 <form action="/usun/{{ $post->id }}" method="POST" class="flex justify-center mt-5">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200">
+                    Usuń Post
+                </button>
+            </form>
+        @endif
                 </article>
 
             @endforeach
