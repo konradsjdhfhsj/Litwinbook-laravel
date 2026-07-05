@@ -139,11 +139,11 @@
                             src="{{ asset($post->zdjecie) }}"
                             class="rounded-lg max-w-md w-full">
                     @endif
-
+                    @if(auth()->check() && auth()->id() == $post->autor)
+                    @endif
                 </article>
 
             @endforeach
-
         </section>
 
     </section>
