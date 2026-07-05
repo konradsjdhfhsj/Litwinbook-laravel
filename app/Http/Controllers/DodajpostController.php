@@ -33,7 +33,6 @@ class DodajpostController extends Controller
 
         return redirect('/glowna')->with('success', 'Post został dodany!');
     } public function usun($id){
-        //$profile = Osoby::all();
          $post = Posty::findOrFail($id);
         $post->delete();
     return redirect('/glowna')->with('succes', 'Post został usunięty');

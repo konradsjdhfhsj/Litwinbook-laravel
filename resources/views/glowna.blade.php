@@ -181,8 +181,29 @@
                         <span class="like-count">polubień</span>
                         <button class="ml-2 text-blue-500 hover:underline like-button">Polub</button>
                     </div>
-                </div>
+                    <form action="/dodaj_komentarz" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id_post" value="{{$post->id}}">         {{-- DODAWANIE KOMENTARZY --}}
+                    <label for="zdjecie">Dodaj zdjecie: <input type="file" name="zdjecie" id="zdjecie"></label>
+                    <input type="text" name="tresc" placeholder="daj komentarz">
+                    <input type="submit" value="Dodaj komentarz">
+                    </form>
+                     @if($post->id === $post->post_id)  {{--WYSWIETLANIE KOMENTARZY --}}
+                        {{$post->altor_komentarza}}
+                        {{$post->komentarz}}
+                        <img src="{{ asset($post->zdjecie) }}" class="mt-2 rounded-lg max-w-xs">
+                        {{$post->data}}
+                    @endif
 
+
+                    @if(auth()->check() && auth()->id() === $profile->id) {{-- USUWANIE POSTUW --}}
+                <form action="/usun/{{ $post->id }}" method="POST" class="flex justify-center mt-5">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200">Usuń Post </button>
+                </form>
+                @endif
+                </div>
             @endforeach
         </section>
 

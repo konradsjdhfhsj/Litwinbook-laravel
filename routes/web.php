@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Aktualizacjaprofilu;
+use App\Http\Controllers\DodajkomentarzController;
 use App\Http\Controllers\DodajpostController;
 use App\Http\Controllers\GlownaController;
 use App\Http\Controllers\LogowanieController;
@@ -16,3 +17,4 @@ Route::get('/glowna', [GlownaController::class, 'glowna']);
 Route::post('/aktualizacja_profilu', [Aktualizacjaprofilu::class, 'aktprofil']);
 Route::post('/dodawanie_postu', [DodajpostController::class, 'dodajpost']);
 Route::delete('/usun/{id}', [DodajpostController::class, 'usun']);
+Route::post('/dodaj_komentarz', [DodajkomentarzController::class, 'dodaj']);

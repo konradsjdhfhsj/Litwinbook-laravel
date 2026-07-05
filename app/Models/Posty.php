@@ -14,7 +14,6 @@ class Posty extends Model
     protected $table = 'posty';
 
     public $timestamps = false;
-
 public function autor()
 {
     return $this->belongsTo(Osoby::class, 'autor');
@@ -26,7 +25,7 @@ public function autor()
         'like',
         'zdjecie',
         'komentarz',
-        'autor komentarza',
+        'altor_komentarza',
         'post_id',
     ];
 
