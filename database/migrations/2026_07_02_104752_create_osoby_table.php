@@ -19,8 +19,13 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('password')->nullable();
             $table->string('avatar');
-            $table->string('data_powstania_konta')->useCurrent();
+
+            // Data utworzenia konta
+            $table->timestamp('data_powstania_konta')->useCurrent();
+
+            // IP utworzenia konta
             $table->ipAddress('ip_utwozenia_konta')->nullable();
+
             $table->timestamps();
         });
     }
