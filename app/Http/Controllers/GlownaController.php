@@ -11,8 +11,13 @@ class GlownaController extends Controller
 {
       public function glowna(){
         $profile = Auth::user();
-        $posty = Posty::all();
+        $posty = Posty::with('osoba')->latest('data')->get();
         return view('glowna', compact('posty', 'profile'));
+    }
+    public function komentarze(){
+$posty = Posty::whereNull('post_id')->with('komentarze')->get();
+
+return view('glowna', compact('posty'));
     }
     
 }

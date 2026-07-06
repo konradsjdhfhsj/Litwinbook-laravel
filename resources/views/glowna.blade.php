@@ -39,7 +39,7 @@
         <li><a href="#" id="homepage" class="hover:text-blue-500">Strona główna</a></li>
         <li><a href="#" id="profile" class="hover:text-blue-500">Profil</a></li>
         <li><a href="#" id="add-post-button" class="hover:text-blue-500">Dodaj post</a></li>
-        <li><a href="logout.php" class="text-red-500 hover:underline">Wyloguj się</a></li>
+        <li><form action="/logout" method="post">@csrf <input type="submit" value="Wyloguj sie" class="text-red-500 hover:underline"></form></li>
       </ul>
     </nav>
   </section>
@@ -143,71 +143,78 @@
 
 
         <!-- Lista postów -->
+<h4 class="text-xl font-semibold mb-4 dark:text-black">
+    Wszystkie posty
+</h4>
 
-        <section id="posts-container" class="bg-white p-4 rounded-xl shadow dark:bg-gray-700">
+@foreach($posty as $post)
+    @if(!empty(trim($post->tresc)))
+        <div class="border-b border-gray-200 py-4">
+            <!-- Dane Autora Posta -->
+            <div class="flex items-center gap-2 mb-2">
+                <img src="{{ asset($post->osoba?->avatar) }}" class="w-10 h-10 rounded-full">
+                <span class="font-semibold dark:text-black">
+                    {{ $post->autor }}
+                </span>
+            </div>
+            
+            <!-- Data Posta -->
+            <p class="text-sm text-gray-600 dark:text-black">
+                {{ $post->data }}
+            </p>
 
-            <h4 class="text-xl font-semibold mb-4 dark:text-black">
-                Wszystkie posty
-            </h4>
+            <!-- Treść Posta -->
+            <p class="mt-2 dark:text-black">
+                {{ $post->tresc }}
+            </p>
 
-            @foreach($posty as $post)
+            <!-- Zdjęcie Posta -->
+            @if($post->zdjecie)
+                <img src="{{ asset($post->zdjecie) }}" class="mt-2 rounded-lg max-w-xs">
+            @endif
 
-                <div class="border-b border-gray-200 py-4">
-                <div class="flex items-center gap-2 mb-2">
+            <!-- Polubienia -->
+            <div class="text-sm text-gray-600 mt-2 dark:text-black mb-4">
+                <span class="like-count">polubień</span>
+                <button class="ml-2 text-blue-500 hover:underline like-button">Polub</button>
+            </div>
 
-                    <img src="{{ asset($profile->avatar) }}" class="w-10 h-10 rounded-full">
-                    <span class="font-semibold dark:text-black">
-                        {{$post->autor}}
-                    </span>
-                </div>
-                <p class="text-sm text-gray-600 dark:text-black">
-                    {{ $post->data }}
-                </p>
-
-                    <p class="mt-2 dark:text-black">
-                        {{$post->tresc}}
-                    </p>
-
-                    @if($post->zdjecie)
-                        <img
-                            src="{{ asset($post->zdjecie) }}"
-                            class="mt-2 rounded-lg max-w-xs">
-
-                    @endif
-                    <div class="text-sm text-gray-500 mb-3">
-                        {{$post->altor_komentarza}}
+            <!-- Sekcja Komentarzy (Wewnątrz posta) -->
+            <div class="komentarze-sekcja ml-6 pl-4 border-l-2 border-gray-100 my-3">
+                @foreach($post->komentarze as $komentarz)
+                    <div class="mb-3 bg-gray-50 p-2 rounded dark:text-black text-sm">
+                        <div class="font-semibold text-gray-700">
+                            {{ $komentarz->altor_komentarza }} 
+                            <span class="text-xs font-normal text-gray-400 ml-2">{{ $komentarz->data }}</span>
+                        </div>
+                        <p class="text-gray-800 mt-1">{{ $komentarz->komentarz }}</p>
+                        
+                        @if($komentarz->zdjecie)
+                            <img src="{{ asset($komentarz->zdjecie) }}" class="mt-1 rounded max-w-xs h-20 object-cover">
+                        @endif
                     </div>
-                    <div class="text-sm text-gray-600 mt-2 dark:text-black">
-                        <span class="like-count">polubień</span>
-                        <button class="ml-2 text-blue-500 hover:underline like-button">Polub</button>
-                    </div>
-                    <form action="/dodaj_komentarz" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id_post" value="{{$post->id}}">         {{-- DODAWANIE KOMENTARZY --}}
-                    <label for="zdjecie">Dodaj zdjecie: <input type="file" name="zdjecie" id="zdjecie"></label>
-                    <input type="text" name="tresc" placeholder="daj komentarz">
-                    <input type="submit" value="Dodaj komentarz">
-                    </form>
-                     @if($post->id === $post->post_id)  {{--WYSWIETLANIE KOMENTARZY --}}
-                        {{$post->altor_komentarza}}
-                        {{$post->komentarz}}
-                        <img src="{{ asset($post->zdjecie) }}" class="mt-2 rounded-lg max-w-xs">
-                        {{$post->data}}
-                    @endif
+                @endforeach
+            </div>
 
-
-                    @if(auth()->check() && auth()->id() === $profile->id) {{-- USUWANIE POSTUW --}}
-                <form action="/usun/{{ $post->id }}" method="POST" class="flex justify-center mt-5">
+            <!-- Formularz dodawania komentarza do TEGO konkretnego posta -->
+            <form action="/dodaj_komentarz" method="post" enctype="multipart/form-data" class="ml-6 mt-3">
                 @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-200">Usuń Post </button>
-                </form>
-                @endif
+                <input type="hidden" name="id_post" value="{{ $post->id }}">         
+                <div class="flex flex-col gap-2 max-w-md">
+                    <input type="text" name="tresc" placeholder="Napisz komentarz..." class="border rounded p-2 text-sm" required>
+                    <label for="zdjecie-{{ $post->id }}" class="text-xs text-gray-500 cursor-pointer">
+                        Dodaj zdjęcie: <input type="file" name="zdjecie" id="zdjecie-{{ $post->id }}">
+                    </label>
+                    <input type="submit" value="Dodaj komentarz" class="bg-blue-500 text-white rounded text-sm py-1 px-3 self-start hover:bg-blue-600 cursor-pointer">
                 </div>
-            @endforeach
-        </section>
+            </form>
 
-    </section>
+        </div> <!-- Koniec div posta -->
+    @endif
+@endforeach
+
+</section>
+
 
 </main>
 

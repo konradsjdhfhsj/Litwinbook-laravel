@@ -14,10 +14,15 @@ class Posty extends Model
     protected $table = 'posty';
 
     public $timestamps = false;
-public function autor()
+public function osoba()
 {
-    return $this->belongsTo(Osoby::class, 'autor');
+    return $this->belongsTo(Osoby::class, 'autor', 'email');
 }
+
+    public function komentarze()
+    {
+        return $this->hasMany(Posty::class, 'post_id', 'id');
+    }
     protected $fillable = [
         'autor',
         'tresc',
