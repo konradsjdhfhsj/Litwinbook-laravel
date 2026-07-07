@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('autor')->nullable();
             $table->string('tresc')->nullable();
             $table->string('data')->useCurrent();
-            $table->string('like')->nullable();
+            $table->integer('like')->default(0);
             $table->string('komentarz')->nullable();
             $table->string('zdjecie');
             $table->string('altor_komentarza')->nullable();

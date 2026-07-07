@@ -32,11 +32,12 @@ class RejestracjaController extends Controller
             'avatar' => 'storage/dus.png',    
         ]);
 
-        try {
-            Mail::to($osoba->email)->send(new Mailpowitalny());
-        } catch (Exception $e) {
-            Log::error('Nie udało się wysłać maila powitalnego: ' . $e->getMessage());
-        }
+try {
+    Mail::to($osoba->email)->send(new Mailpowitalny());
+    dd('wysłano');
+} catch (\Throwable $e) {
+    dd($e->getMessage());
+}
         return redirect('/')->with('sukces', 'Konto zostało utworzone pomyślnie!');
     }
 }

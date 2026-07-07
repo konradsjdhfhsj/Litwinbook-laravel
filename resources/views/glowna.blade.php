@@ -33,124 +33,77 @@
             <input type="text" name="osoba" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis inline-block align-middle" placeholder="Wyszukaj Posty" required />
         </div>
     </form>
-    <nav>
-      <ul class="flex gap-4 text-sm text-gray-700 dark:text-black">
-        <li class="hidden sm:block text-sm text-gray-600"><?= date('d-m-Y'); ?></li>
-        <li><a href="#" id="homepage" class="hover:text-blue-500">Strona główna</a></li>
-        <li><a href="#" id="profile" class="hover:text-blue-500">Profil</a></li>
-        <li><a href="#" id="add-post-button" class="hover:text-blue-500">Dodaj post</a></li>
-        <li><form action="/logout" method="post">@csrf <input type="submit" value="Wyloguj sie" class="text-red-500 hover:underline"></form></li>
-      </ul>
-    </nav>
+<nav>
+  <ul class="flex gap-4 text-sm text-gray-700 dark:text-black">
+    <li class="hidden sm:block text-sm text-gray-600"><?= date('d-m-Y'); ?></li>
+    <li><a href="#" id="homepage" class="hover:text-blue-500">Strona główna</a></li>
+    <li><a href="#" id="profile" class="hover:text-blue-500">Profil</a></li>
+    <li><a href="#" id="add-post-button" class="hover:text-blue-500">Dodaj post</a></li>
+    <li><form action="/logout" method="post">@csrf <input type="submit" value="Wyloguj sie" class="text-red-500 hover:underline"></form></li>
+  </ul>
+</nav>
   </section>
 </header>
 
 <main class="max-w-6xl mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
 
     <!-- PROFIL -->
-    <section id="profilePage" class="hidden bg-white p-6 rounded-xl shadow space-y-4 dark:bg-gray-700 dark:text-black">
+    <section id="profile" class="hidden bg-white p-6 rounded-xl shadow space-y-4 dark:bg-gray-700 dark:text-black">
 
-        <h2 class="text-xl font-semibold mb-5">
-            Profil
-        </h2>
+        <h2 class="text-xl font-semibold mb-5">Profil</h2>
 
         <form action="/aktualizacja_profilu" method="post" enctype="multipart/form-data" class="space-y-4">
             @csrf
-
             <input type="file" name="avatar" id="avatar-upload" class="hidden">
-
             <label for="avatar-upload" class="cursor-pointer flex justify-center">
-                <img
-                    src="{{ asset($profile?->avatar) }}"
-                    class="w-32 h-32 rounded-full object-cover border-4 border-gray-200 hover:opacity-80 transition"
-                >
+                <img src="{{ asset($profile?->avatar) }}"class="w-32 h-32 rounded-full object-cover border-4 border-gray-200 hover:opacity-80 transition">
             </label>
 
             <div>
                 <label class="font-semibold">Imię</label>
-                <input
-                    type="text"
-                    name="imie"
-                    value="{{$profile?->imie}}"
-                    class="w-full mt-1 border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none">
+                <input type="text"name="imie"value="{{$profile?->imie}}"class="w-full mt-1 border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none">
             </div>
 
             <div>
                 <label class="font-semibold">Nazwisko</label>
-                <input
-                    type="text"
-                    name="nazwisko"
-                    value="{{$profile?->nazwisko}}"
-                    class="w-full mt-1 border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none">
+                <input type="text"name="nazwisko"value="{{$profile?->nazwisko}}"class="w-full mt-1 border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none">
             </div>
 
             <div>
                 <label class="font-semibold">Email</label>
-                <input
-                    type="text"
-                    name="email"
-                    value="{{$profile?->email}}"
-                    class="w-full mt-1 border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none">
+                <input type="text"name="email"value="{{$profile?->email}}"class="w-full mt-1 border rounded-lg p-2 focus:ring-2 focus:ring-blue-400 outline-none">
             </div>
 
-            <button
-                class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded">
-                Zaktualizuj profil
-            </button>
-
+            <button class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded">Zaktualizuj profil</button>
         </form>
 
     </section>
 
 
     <!-- POSTY -->
-    <section class="md:col-span-2 space-y-6">
+    <section class="md:col-span-2 space-y-6" id="homepage">
 
         <!-- Dodawanie posta -->
 
-        <section id="add-posts" class=" bg-white p-6 rounded-xl shadow md:col-span-2 dark:bg-gray-700 dark:text-black">
+        <section id="add-posts-button" class=" bg-white p-6 rounded-xl shadow md:col-span-2 dark:bg-gray-700 dark:text-black">
 
-            <h3 class="text-xl font-semibold mb-4">
-                Dodaj nowy post
-            </h3>
+            <h3 class="text-xl font-semibold mb-4">Dodaj nowy post</h3>
 
             <form action="/dodawanie_postu" method="post" id="upload_zdj" enctype="multipart/form-data">
                 @csrf
-
-                <textarea
-                    name="tresc"
-                    rows="4"
-                    placeholder="Co nowego?"
-                    class="w-full border rounded p-2 mb-4 dark:bg-gray-800 dark:text-black"
-                    id="zdj" 
-                    accept="image/jpeg, image/png, image/webp, image/heic, image/heif"
-                    ></textarea>
-
-                <input
-                    type="file"
-                    id="zdj"
-                    name="zdjecie"
-                    accept="image/jpeg, image/png, image/webp, image/heic, image/heif" 
-                    class="mb-4">
-
-
-                <button
-                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                    Opublikuj
-                </button>
+                <textarea name="tresc"rows="4"placeholder="Co nowego?"class="w-full border rounded p-2 mb-4 dark:bg-gray-800 dark:text-black"id="zdj" accept="image/jpeg, image/png, image/webp, image/heic, image/heif"></textarea>
+                <input type="file"id="zdj"name="zdjecie"accept="image/jpeg, image/png, image/webp, image/heic, image/heif" class="mb-4">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Opublikuj</button>
             </form>
         </section>
 
 
         <!-- Lista postów -->
-<h4 class="text-xl font-semibold mb-4 dark:text-black">
-    Wszystkie posty
-</h4>
+<h4 class="text-xl font-semibold mb-4 dark:text-black">Wszystkie posty</h4>
 
 @foreach($posty as $post)
     @if(!empty(trim($post->tresc)))
         <div class="border-b border-gray-200 py-4">
-            <!-- Dane Autora Posta -->
             <div class="flex items-center gap-2 mb-2">
                 <img src="{{ asset($post->osoba?->avatar) }}" class="w-10 h-10 rounded-full">
                 <span class="font-semibold dark:text-black">
@@ -158,28 +111,19 @@
                 </span>
             </div>
             
-            <!-- Data Posta -->
-            <p class="text-sm text-gray-600 dark:text-black">
-                {{ $post->data }}
-            </p>
+            <p class="text-sm text-gray-600 dark:text-black">{{ $post->data }}</p>
 
-            <!-- Treść Posta -->
-            <p class="mt-2 dark:text-black">
-                {{ $post->tresc }}
-            </p>
+            <p class="mt-2 dark:text-black">{{ $post->tresc }}</p>
 
-            <!-- Zdjęcie Posta -->
-            @if($post->zdjecie)
-                <img src="{{ asset($post->zdjecie) }}" class="mt-2 rounded-lg max-w-xs">
-            @endif
+            @if($post->zdjecie)<img src="{{ asset($post->zdjecie) }}" class="mt-2 rounded-lg max-w-xs">@endif
 
-            <!-- Polubienia -->
-            <div class="text-sm text-gray-600 mt-2 dark:text-black mb-4">
-                <span class="like-count">polubień</span>
-                <button class="ml-2 text-blue-500 hover:underline like-button">Polub</button>
-            </div>
-
-            <!-- Sekcja Komentarzy (Wewnątrz posta) -->
+            <div class="text-sm text-gray-600 mt-2 dark:text-black mb-4"><span class="like-count">polubień</span>
+           <form action="/like" method="post">
+             @csrf
+            <input type="hidden" name="id" value="{{ $post->id }}">
+            <button type="submit" class="ml-2 text-blue-500 hover:underline like-button">Polub</button>
+            </form>
+            <!-- Sekcja Komentarzy  -->
             <div class="komentarze-sekcja ml-6 pl-4 border-l-2 border-gray-100 my-3">
                 @foreach($post->komentarze as $komentarz)
                     <div class="mb-3 bg-gray-50 p-2 rounded dark:text-black text-sm">
@@ -196,7 +140,7 @@
                 @endforeach
             </div>
 
-            <!-- Formularz dodawania komentarza do TEGO konkretnego posta -->
+            <!-- Formularz dodawania komentarza-->
             <form action="/dodaj_komentarz" method="post" enctype="multipart/form-data" class="ml-6 mt-3">
                 @csrf
                 <input type="hidden" name="id_post" value="{{ $post->id }}">         
@@ -209,13 +153,15 @@
                 </div>
             </form>
 
-        </div> <!-- Koniec div posta -->
+        </div> 
     @endif
 @endforeach
 
 </section>
 
-
+<script>
+    
+</script>
 </main>
 
 </body>
