@@ -22,15 +22,16 @@
     <section class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
     <h1 class="text-2xl font-bold text-violet-600 hidden sm:block">LitwinBook</h1>
     
-    <form class="flex items-center max-w-lg mx-auto" method="POST" action="">   
+    <form class="flex items-center max-w-lg mx-auto" method="POST" action="/wyszukaj_post">   
+        @csrf
         <div class="relative w-full">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3">
                 <div class="w-4 h-4 text-gray-500 dark:text-gray-400 flex">
                 <label for="wyszukaj_post" class="z-100"><i class="fa fa-search items-center flex cursor-pointer"></i></label>
-                <input type="submit" id="wyszukaj_post" class="hidden">
+                <input type="submit" id="wyszukaj post" class="hidden">
                 </div>
             </div>
-            <input type="text" name="osoba" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis inline-block align-middle" placeholder="Wyszukaj Posty" required />
+            <input type="text" name="filtr" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-[200px] overflow-hidden whitespace-nowrap text-ellipsis inline-block align-middle" placeholder="Wyszukaj Posty" required />
         </div>
     </form>
 <nav>
@@ -82,6 +83,60 @@
 
     <!-- POSTY -->
     <section class="md:col-span-2 space-y-6" id="homepage">
+
+
+@isset($dane)
+    <h4 class="text-xl font-semibold mb-4 dark:text-black">Wyniki wyszukiwania</h4>
+
+    @foreach($dane as $filtr)
+        <div class="border-b border-gray-200 py-4">
+
+            <div class="flex items-center gap-2 mb-2">
+                <img src="{{ asset($profile->avatar) }}" class="w-10 h-10 rounded-full">
+
+                <span class="font-semibold dark:text-black">
+                    {{ $filtr->autor }}
+                </span>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-black">
+                {{ $filtr->data }}
+            </p>
+
+            @if(!empty($filtr->tresc))
+                <p class="mt-2 dark:text-black">
+                    {{ $filtr->tresc }}
+                </p>
+            @endif
+
+            @if(!empty($post->zdjecie))
+                <img src="{{ asset($post->zdjecie) }}" class="mt-2 rounded-lg max-w-xs">
+            @endif
+
+            <div class="text-sm text-gray-600 mt-2 dark:text-black">
+                {{ $filtr->like }} polubień
+            </div>
+
+            @if(!empty($filtr->komentarz))
+                <div class="komentarze-sekcja ml-6 pl-4 border-l-2 border-gray-100 my-3">
+                    <div class="mb-3 bg-gray-50 p-2 rounded dark:text-black text-sm">
+                        <div class="font-semibold text-gray-700">
+                            {{ $filtr->altor_komentarza }}
+                        </div>
+
+                        <p class="text-gray-800 mt-1">
+                            {{ $filtr->komentarz }}
+                        </p>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+    @endforeach
+@endisset
+
+
+
 
         <!-- Dodawanie posta -->
 
@@ -159,9 +214,6 @@
 
 </section>
 
-<script>
-    
-</script>
 </main>
 
 </body>

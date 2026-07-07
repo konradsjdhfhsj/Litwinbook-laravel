@@ -21,3 +21,4 @@ Route::delete('/usun/{id}', [DodajpostController::class, 'usun']);
 Route::post('/dodaj_komentarz', [DodajkomentarzController::class, 'dodaj']);
 Route::post('/logout',[LogowanieController::class, 'logout']);
 Route::post('/like',[Likecontroller::class, 'like']);
+Route::post('/wyszukaj_post',[GlownaController::class, 'wyszukaj']);
