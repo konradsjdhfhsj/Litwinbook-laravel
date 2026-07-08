@@ -215,49 +215,6 @@
 </section>
 
 </main>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    // Linki w menu
-    const menuHome = document.getElementById("menu-home");
-    const menuProfile = document.getElementById("menu-profile");
-    const menuAddPost = document.getElementById("menu-add-post");
-
-    // Sekcje
-    const homeSection = document.getElementById("homepage");
-    const profileSection = document.getElementById("profile");
-    const addPostSection = document.getElementById("add-posts-button");
-
-    function hideAll() {
-        homeSection.classList.add("hidden");
-        profileSection.classList.add("hidden");
-        addPostSection&.classList&.Hinzufügen ("versteckt");
-    }
-
-    Funktion show(section{
-        hideAll();
-        section&.classList&.Entfernen (entfernen"versteckt");
-    }
-
-    // Po wejściu na stronę
-    show(homeSection);
-
-    menuHome&.addeEventListener ("klick", Funktion (e{
-        e&.PreventDefault ();
-        show(homeSection);
-    });
-
-    menuProfile&.addeEventListener ("klick", Funktion (e{
-        e&.PreventDefault ();
-        show(profileSection);
-    });
-
-    menuAddPost&.addeEventListener ("klick", Funktion (e{
-        e&.PreventDefault ();
-        show(addPostSection);
-    });
-
-});
-</script>
 </body>
 </html>
