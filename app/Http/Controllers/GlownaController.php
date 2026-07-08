@@ -24,7 +24,7 @@ class GlownaController extends Controller
         ]);
          $profile = Auth::user();
         $posty = Posty::with('osoba')->latest('data')->get();
-        $dane = Posty::where('autor', 'LIKE', $filtr['filtr'] . '%')->get();
+        $dane = Posty::where('autor', 'LIKE', $filtr['filtr'] . '%')->latest('data')->get();
         return view('/glowna', compact('dane', 'profile', 'posty'));
     }
     
