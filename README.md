@@ -1,71 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Litwinbook – Serwis Społecznościowy
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Litwinbook to aplikacja internetowa typu social media (inspirowana serwisem Facebook), stworzona w frameworku Laravel. Projekt powstał w celach prezentacji umiejętności programistycznych, znajomości wzorców projektowych MVC, bezpiecznego zarządzania konfiguracją oraz integracji relacyjnej bazy danych i usług zewnętrznych (SMTP).
 
-## About Laravel
+## Kluczowe Funkcjonalności
+* Architektura MVC oparta na frameworku Laravel
+* System powiadomień e-mail weryfikujący akcje użytkownika (SMTP)
+* Wydajna, relacyjna baza danych zoptymalizowana pod kątem relacji społecznościowych
+* Bezpieczne przechowywanie danych wrażliwych przy użyciu zmiennych środowiskowych
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Spis Treści
+- [Wymagania wstępne](#wymagania-wstępne)
+- [Baza danych SQL](#baza-danych-sql)
+- [Konfiguracja pliku .env](#konfiguracja-pliku-env)
+- [Instrukcja uruchomienia](#instrukcja-uruchomienia)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Wymagania wstępne
+Przed uruchomieniem projektu upewnij się, że posiadasz zainstalowane w swoim środowisku lokalnym:
+* PHP (w wersji zgodnej z wymaganiami danej wersji frameworka Laravel)
+* Composer (menedżer pakietów PHP)
+* System zarządzania bazą danych (np. MySQL / MariaDB)
+* Narzędzie do obsługi baz danych (np. phpMyAdmin, DBeaver, TablePlus)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Baza danych SQL
+W katalogu `public/` znajduje się struktura bazy wraz z testowymi danymi niezbędnymi do prawidłowego działania serwisu Litwinbook.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Pobierz plik bazy danych bezpośrednio z projektu: `public/szt.sql`
+2. Utwórz nową, czystą bazę danych w swoim systemie.
+3. Zaimportuj plik `szt.sql` do nowo utworzonej bazy. Jeśli preferujesz pracę w terminalu, użyj polecenia:
+   ```bash
+   mysql -u twoj_login -p nazwa_bazy < public/szt.sql
+   ```
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Konfiguracja pliku `.env`
+Projekt wykorzystuje architekturę zmiennych środowiskowych `.env` do bezpiecznego zarządzania konfiguracją frameworka Laravel. Stwórz plik o nazwie `.env` w głównym katalogu projektu (możesz skopiować istniejący `.env.example`) i uzupełnij go swoimi danymi:
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+### 1. Połączenie z bazą danych
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nazwa_twojej_bazy
+DB_USERNAME=twoj_login_bazy
+DB_PASSWORD=twoje_haslo_bazy
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Konfiguracja skrzynki e-mail (SMTP)
+Wprowadź dane swojego serwera pocztowego (np. Mailtrap do testów lub Gmail), aby aplikacja mogła poprawnie wysyłać powiadomienia oraz e-maile systemowe:
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=://example.com
+MAIL_PORT=587
+MAIL_USERNAME=twoj_email@example.com
+MAIL_PASSWORD=twoje_haslo_poczty
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=no-reply@litwinbook.local
+MAIL_FROM_NAME="Litwinbook"
+```
 
-## Contributing
+> ⚠️ **Bezpieczeństwo:** Plik `.env` zawiera klucze aplikacji oraz dane dostępowe. Zgodnie z dobrymi praktykami bezpieczeństwa, został on wykluczony z systemu kontroli wersji i znajduje się w pliku `.gitignore`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Instrukcja uruchomienia
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Po poprawnym zaimportowaniu bazy danych `szt.sql` oraz konfiguracji pliku `.env`, wykonaj poniższe kroki w terminalu w głównym katalogu projektu:
 
-## Security Vulnerabilities
+1. **Instalacja zależności PHP:**
+   ```bash
+   composer install
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. **Wygenerowanie klucza aplikacji Laravel:**
+   ```bash
+   php artisan key:generate
+   ```
 
-## License
+3. **Uruchomienie lokalnego serwera deweloperskiego:**
+   ```bash
+   php artisan serve
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
-# Litwinbook-laravel
+Aplikacja będzie dostępna w przeglądarce pod adresem: `http://127.0.0.1:8000`
